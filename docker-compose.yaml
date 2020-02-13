@@ -1,0 +1,22 @@
+version: '3.5'
+
+services:
+  user-service:
+    restart: always
+    container_name: "user-service"
+    build: .
+    ports:
+      - 50053:50051
+    environment:
+      DB_HOST: "mongodb://datastore:27017"
+      MICRO_ADDRESS: ":50051"
+
+  database:
+    image: postgres
+    ports:
+      - 54321:54321
+
+networks:
+  default:
+    external:
+      name: steaks-backend-tier
